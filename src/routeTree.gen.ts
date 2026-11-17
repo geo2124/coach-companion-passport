@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as CoachIndexRouteImport } from './routes/coach.index'
+import { Route as CoachRegisterRouteImport } from './routes/coach.register'
+import { Route as VerifyIdRouteImport } from './routes/verify.$id'
+import { Route as AdminCoachesIdRouteImport } from './routes/admin.coaches.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoachIndexRoute = CoachIndexRouteImport.update({
+  id: '/coach/',
+  path: '/coach/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoachRegisterRoute = CoachRegisterRouteImport.update({
+  id: '/coach/register',
+  path: '/coach/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyIdRoute = VerifyIdRouteImport.update({
+  id: '/verify/$id',
+  path: '/verify/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCoachesIdRoute = AdminCoachesIdRouteImport.update({
+  id: '/admin/coaches/$id',
+  path: '/admin/coaches/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/coach/register': typeof CoachRegisterRoute
+  '/verify/$id': typeof VerifyIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/coach/': typeof CoachIndexRoute
+  '/admin/coaches/$id': typeof AdminCoachesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/coach/register': typeof CoachRegisterRoute
+  '/verify/$id': typeof VerifyIdRoute
+  '/admin': typeof AdminIndexRoute
+  '/coach': typeof CoachIndexRoute
+  '/admin/coaches/$id': typeof AdminCoachesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/coach/register': typeof CoachRegisterRoute
+  '/verify/$id': typeof VerifyIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/coach/': typeof CoachIndexRoute
+  '/admin/coaches/$id': typeof AdminCoachesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin/login'
+    | '/coach/register'
+    | '/verify/$id'
+    | '/admin/'
+    | '/coach/'
+    | '/admin/coaches/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin/login'
+    | '/coach/register'
+    | '/verify/$id'
+    | '/admin'
+    | '/coach'
+    | '/admin/coaches/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin/login'
+    | '/coach/register'
+    | '/verify/$id'
+    | '/admin/'
+    | '/coach/'
+    | '/admin/coaches/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  CoachRegisterRoute: typeof CoachRegisterRoute
+  VerifyIdRoute: typeof VerifyIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  CoachIndexRoute: typeof CoachIndexRoute
+  AdminCoachesIdRoute: typeof AdminCoachesIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coach/': {
+      id: '/coach/'
+      path: '/coach'
+      fullPath: '/coach/'
+      preLoaderRoute: typeof CoachIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coach/register': {
+      id: '/coach/register'
+      path: '/coach/register'
+      fullPath: '/coach/register'
+      preLoaderRoute: typeof CoachRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify/$id': {
+      id: '/verify/$id'
+      path: '/verify/$id'
+      fullPath: '/verify/$id'
+      preLoaderRoute: typeof VerifyIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/coaches/$id': {
+      id: '/admin/coaches/$id'
+      path: '/admin/coaches/$id'
+      fullPath: '/admin/coaches/$id'
+      preLoaderRoute: typeof AdminCoachesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  CoachRegisterRoute: CoachRegisterRoute,
+  VerifyIdRoute: VerifyIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  CoachIndexRoute: CoachIndexRoute,
+  AdminCoachesIdRoute: AdminCoachesIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
